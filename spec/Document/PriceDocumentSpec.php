@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace spec\Sylius\ElasticSearchPlugin\Document;
 
-use PhpSpec\ObjectBehavior;
 use Sylius\ElasticSearchPlugin\Document\PriceDocument;
+use PhpSpec\ObjectBehavior;
 
 final class PriceDocumentSpec extends ObjectBehavior
 {

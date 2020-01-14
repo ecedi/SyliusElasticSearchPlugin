@@ -40,7 +40,7 @@ final class Pager extends AbstractFilter implements ViewDataFactoryInterface
         $state->setUrlParameters([]);
         $page = (int) $state->getValue();
         $state->setValue($page < 1 ? 1 : $page);
-        $state->addOption('limit', (int) $request->get('limit', (int) $this->getOption('limit', 10)));
+        $state->addOption('limit', (int) $request->get('limit', 10));
 
         return $state;
     }

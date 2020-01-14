@@ -1,122 +1,150 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Tests\Sylius\ElasticSearchPlugin\Factory;
 
 use ONGR\ElasticsearchBundle\Collection\Collection;
-use Sylius\Bundle\ChannelBundle\Doctrine\ORM\ChannelRepository;
-use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductRepository;
+use Sylius\Component\Attribute\AttributeType\TextAttributeType;
 use Sylius\Component\Core\Model\Channel;
-use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\ChannelPricing;
 use Sylius\Component\Core\Model\Product;
+use Sylius\Component\Core\Model\ProductTaxon;
+use Sylius\Component\Core\Model\ProductVariant;
+use Sylius\Component\Core\Model\Taxon;
+use Sylius\Component\Currency\Model\Currency;
 use Sylius\Component\Locale\Model\Locale;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Component\Product\Model\ProductAttribute;
+use Sylius\Component\Product\Model\ProductAttributeValue;
 use Sylius\ElasticSearchPlugin\Document\AttributeDocument;
 use Sylius\ElasticSearchPlugin\Document\ImageDocument;
 use Sylius\ElasticSearchPlugin\Document\OptionDocument;
 use Sylius\ElasticSearchPlugin\Document\PriceDocument;
 use Sylius\ElasticSearchPlugin\Document\ProductDocument;
+use Sylius\ElasticSearchPlugin\Document\ProductTaxonDocument;
 use Sylius\ElasticSearchPlugin\Document\TaxonDocument;
 use Sylius\ElasticSearchPlugin\Document\VariantDocument;
-use Sylius\ElasticSearchPlugin\Factory\Document\AttributeDocumentFactory;
-use Sylius\ElasticSearchPlugin\Factory\Document\ImageDocumentFactory;
-use Sylius\ElasticSearchPlugin\Factory\Document\OptionDocumentFactory;
-use Sylius\ElasticSearchPlugin\Factory\Document\PriceDocumentFactory;
-use Sylius\ElasticSearchPlugin\Factory\Document\ProductDocumentFactory;
-use Sylius\ElasticSearchPlugin\Factory\Document\TaxonDocumentFactory;
-use Sylius\ElasticSearchPlugin\Factory\Document\VariantDocumentFactory;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Sylius\ElasticSearchPlugin\Exception\UnsupportedFactoryMethodException;
+use Sylius\ElasticSearchPlugin\Factory\ProductDocumentFactory;
 
-final class ProductDocumentFactoryTest extends KernelTestCase
+final class ProductDocumentFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var ProductRepository */
-    protected $productRepository;
-
-    /** @var RepositoryInterface */
-    protected $localeRepository;
-
-    /** @var ChannelRepository */
-    protected $channelRepository;
-
-    public function setUp()
-    {
-        self::bootKernel();
-
-        $this->productRepository = static::$kernel->getContainer()->get('doctrine.orm.entity_manager')->getRepository(
-            Product::class
-        )
-        ;
-        $this->localeRepository = static::$kernel->getContainer()->get('doctrine.orm.entity_manager')->getRepository(
-            Locale::class
-        )
-        ;
-        $this->channelRepository = static::$kernel->getContainer()->get('doctrine.orm.entity_manager')->getRepository(
-            Channel::class
-        )
-        ;
-    }
-
     /**
      * @test
      */
     public function it_creates_product_document_from_sylius_product_model()
     {
-        /** @var ChannelInterface $syliusChannel */
-        $syliusChannel = $this->channelRepository->findOneByCode('WEB_GB');
-        /** @var Locale $syliusLocale */
-        $syliusLocale = $this->localeRepository->findOneBy(['code' => 'en_GB']);
         $createdAt = \DateTime::createFromFormat(\DateTime::W3C, '2017-04-18T16:12:55+02:00');
+        $syliusProductAttributeValue = new ProductAttributeValue();
+        $syliusProductAttribute = new ProductAttribute();
+        $syliusProductAttribute->setCurrentLocale('en_US');
+        $syliusProductAttribute->setCode('color');
+        $syliusProductAttribute->setName('Color');
+        $syliusProductAttributeValue->setLocaleCode('en_US');
+        $syliusProductAttribute->setType(TextAttributeType::TYPE);
+        $syliusProductAttribute->setStorageType(TextAttributeType::TYPE);
+        $syliusProductAttributeValue->setAttribute($syliusProductAttribute);
+        $syliusProductAttributeValue->setValue('red');
 
-        /** @var Product $syliusProduct */
-        $syliusProduct = $this->productRepository->findOneByChannelAndSlug(
-            $syliusChannel,
-            $syliusLocale->getCode(),
-            'logan-mug'
-        );
+        $syliusTaxon = new Taxon();
+        $syliusTaxon->setCurrentLocale('en_US');
+        $syliusTaxon->setCode('TREE');
+        $syliusTaxon->setSlug('tree');
+        $syliusTaxon->setDescription('Lorem ipsum');
+        $syliusTaxon->setPosition(0);
+
+        $syliusProductTaxon = new ProductTaxon();
+        $syliusProductTaxon->setPosition(1);
+
+        $syliusLocale = new Locale();
+        $syliusLocale->setCode('en_US');
+
+        $syliusProductVariant = new ProductVariant();
+        $syliusProductVariant->setCode('red_banana');
+        $syliusProductVariant->setPosition(1);
+
+        $syliusProduct = new Product();
+        $channelPrice = new ChannelPricing();
+        $syliusChannel = new Channel();
+        $currency = new Currency();
+        $currency->setCode('USD');
+
+        $syliusProductTaxon->setProduct($syliusProduct);
+        $syliusProductTaxon->setTaxon($syliusTaxon);
+        $syliusProductTaxon->setPosition(1);
+        $channelPrice->setPrice(1000);
+        $channelPrice->setChannelCode('mobile');
+
+        $syliusChannel->setCode('mobile');
+        $syliusChannel->setDefaultLocale($syliusLocale);
+        $syliusChannel->addLocale($syliusLocale);
+        $syliusChannel->addCurrency($currency);
+        $syliusChannel->setBaseCurrency($currency);
+
+        $syliusProductVariant->addChannelPricing($channelPrice);
+        $syliusProduct->addVariant($syliusProductVariant);
+        $syliusProduct->addChannel($syliusChannel);
+        $syliusProduct->setMainTaxon($syliusTaxon);
+        $syliusProduct->addProductTaxon($syliusProductTaxon);
         $syliusProduct->setCreatedAt($createdAt);
+        $syliusProduct->setCurrentLocale('en_US');
+        $syliusProduct->setName('Banana');
+        $syliusProduct->setSlug('/banana');
+        $syliusProduct->setDescription('Lorem ipsum');
+        $syliusProduct->setCode('banana');
+        $syliusProduct->addAttribute($syliusProductAttributeValue);
 
         $factory = new ProductDocumentFactory(
             ProductDocument::class,
-            new AttributeDocumentFactory(AttributeDocument::class),
-            new ImageDocumentFactory(ImageDocument::class),
-            new PriceDocumentFactory(PriceDocument::class),
-            new TaxonDocumentFactory(TaxonDocument::class, new ImageDocumentFactory(ImageDocument::class)),
-            new VariantDocumentFactory(
-                VariantDocument::class,
-                new PriceDocumentFactory(PriceDocument::class),
-                new ImageDocumentFactory(ImageDocument::class),
-                new OptionDocumentFactory(OptionDocument::class)
-            ),
-            ['MUG_COLLECTION_CODE', 'MUG_MATERIAL_CODE', 'PRODUCTION_YEAR']
+            AttributeDocument::class,
+            ImageDocument::class,
+            PriceDocument::class,
+            ProductTaxonDocument::class,
+            TaxonDocument::class,
+            VariantDocument::class,
+            OptionDocument::class,
+            ['color']
         );
         /** @var ProductDocument $product */
-        $product = $factory->create(
+        $product = $factory->createFromSyliusSimpleProductModel(
             $syliusProduct,
             $syliusLocale,
             $syliusChannel
         );
 
-        $taxon = $this->makeMainTaxon();
+        $taxon = new TaxonDocument();
+        $taxon->setCode('TREE');
+        $taxon->setPosition(0);
+        $taxon->setSlug('tree');
+        $taxon->setDescription('Lorem ipsum');
 
-        $productTaxons = $this->makeProductTaxons();
+        $productTaxon = new ProductTaxonDocument();
+        $productTaxon->setCode('TREE');
+        $productTaxon->setSlug('tree');
+        $productTaxon->setPosition(1);
 
-        $productAttributes = $this->makeProductAttributes();
+        $productAttribute = new AttributeDocument();
+        $productAttribute->setCode('color');
+        $productAttribute->setName('Color');
+        $productAttribute->setValue('red');
 
-        $this->assertEquals($product->getCode(), $product->getCode());
-        $this->assertEquals($product->getName(), $product->getName());
-        $this->assertEquals('en_GB', $product->getLocaleCode());
-        $this->assertEquals(new Collection($productAttributes), $product->getAttributes());
+        $this->assertEquals('banana', $product->getCode());
+        $this->assertEquals('Banana', $product->getName());
+        $this->assertEquals('en_US', $product->getLocaleCode());
+        $this->assertEquals(
+            new Collection([
+                $productAttribute
+            ]),
+            $product->getAttributes()
+        );
         $this->assertEquals(1000, $product->getPrice()->getAmount());
-        $this->assertEquals('GBP', $product->getPrice()->getCurrency());
-        $this->assertEquals('en_GB', $product->getLocaleCode());
-        $this->assertEquals('WEB_GB', $product->getChannelCode());
-        $this->assertEquals('logan-mug', $product->getSlug());
-        $this->assertEquals('Logan Mug', $product->getName());
+        $this->assertEquals('USD', $product->getPrice()->getCurrency());
+        $this->assertEquals('en_US', $product->getLocaleCode());
+        $this->assertEquals('mobile', $product->getChannelCode());
+        $this->assertEquals('/banana', $product->getSlug());
+        $this->assertEquals('Banana', $product->getName());
         $this->assertEquals($createdAt, $product->getCreatedAt());
-        $this->assertEquals('Logan Mug', $product->getDescription());
+        $this->assertEquals('Lorem ipsum', $product->getDescription());
         $this->assertEquals($taxon, $product->getMainTaxon());
-        $this->assertEquals(new Collection($productTaxons), $product->getTaxons());
+        $this->assertEquals(new Collection([$productTaxon]), $product->getProductTaxons());
         $this->assertEquals(0.0, $product->getAverageReviewRating());
     }
 
@@ -125,134 +153,289 @@ final class ProductDocumentFactoryTest extends KernelTestCase
      */
     public function it_creates_product_document_only_with_whitelisted_attributes()
     {
-        /** @var ChannelInterface $syliusChannel */
-        $syliusChannel = $this->channelRepository->findOneByCode('WEB_GB');
-        /** @var Locale $syliusLocale */
-        $syliusLocale = $this->localeRepository->findOneBy(['code' => 'en_GB']);
         $createdAt = \DateTime::createFromFormat(\DateTime::W3C, '2017-04-18T16:12:55+02:00');
+        $firstSyliusProductAttributeValue = new ProductAttributeValue();
+        $firstSyliusProductAttribute = new ProductAttribute();
+        $firstSyliusProductAttribute->setCurrentLocale('en_US');
+        $firstSyliusProductAttribute->setCode('material');
+        $firstSyliusProductAttribute->setName('Material');
+        $firstSyliusProductAttributeValue->setLocaleCode('en_US');
+        $firstSyliusProductAttribute->setType(TextAttributeType::TYPE);
+        $firstSyliusProductAttribute->setStorageType(TextAttributeType::TYPE);
+        $firstSyliusProductAttributeValue->setAttribute($firstSyliusProductAttribute);
+        $firstSyliusProductAttributeValue->setValue('wood');
 
-        /** @var Product $syliusProduct */
-        $syliusProduct = $this->productRepository->findOneByChannelAndSlug(
-            $syliusChannel,
-            $syliusLocale->getCode(),
-            'logan-mug'
-        );
+        $secondSyliusProductAttributeValue = new ProductAttributeValue();
+        $secondSyliusProductAttribute = new ProductAttribute();
+        $secondSyliusProductAttribute->setCurrentLocale('en_US');
+        $secondSyliusProductAttribute->setCode('size');
+        $secondSyliusProductAttribute->setName('Size');
+        $secondSyliusProductAttributeValue->setLocaleCode('en_US');
+        $secondSyliusProductAttribute->setType(TextAttributeType::TYPE);
+        $secondSyliusProductAttribute->setStorageType(TextAttributeType::TYPE);
+        $secondSyliusProductAttributeValue->setAttribute($secondSyliusProductAttribute);
+        $secondSyliusProductAttributeValue->setValue('M');
+
+        $syliusTaxon = new Taxon();
+        $syliusTaxon->setCurrentLocale('en_US');
+        $syliusTaxon->setCode('TREE');
+        $syliusTaxon->setSlug('tree');
+        $syliusTaxon->setDescription('Lorem ipsum');
+        $syliusTaxon->setPosition(0);
+
+        $syliusProductTaxon = new ProductTaxon();
+        $syliusProductTaxon->setPosition(1);
+
+        $syliusLocale = new Locale();
+        $syliusLocale->setCode('en_US');
+
+        $syliusProductVariant = new ProductVariant();
+        $syliusProductVariant->setCode('red_banana');
+        $syliusProductVariant->setPosition(1);
+
+        $syliusProduct = new Product();
+        $channelPrice = new ChannelPricing();
+        $syliusChannel = new Channel();
+        $currency = new Currency();
+        $currency->setCode('USD');
+
+        $syliusProductTaxon->setProduct($syliusProduct);
+        $syliusProductTaxon->setTaxon($syliusTaxon);
+        $syliusProductTaxon->setPosition(1);
+        $channelPrice->setPrice(1000);
+        $channelPrice->setChannelCode('mobile');
+
+        $syliusChannel->setCode('mobile');
+        $syliusChannel->setDefaultLocale($syliusLocale);
+        $syliusChannel->addLocale($syliusLocale);
+        $syliusChannel->addCurrency($currency);
+        $syliusChannel->setBaseCurrency($currency);
+
+        $syliusProductVariant->addChannelPricing($channelPrice);
+        $syliusProduct->addVariant($syliusProductVariant);
+        $syliusProduct->addChannel($syliusChannel);
+        $syliusProduct->setMainTaxon($syliusTaxon);
+        $syliusProduct->addProductTaxon($syliusProductTaxon);
         $syliusProduct->setCreatedAt($createdAt);
+        $syliusProduct->setCurrentLocale('en_US');
+        $syliusProduct->setName('Banana');
+        $syliusProduct->setSlug('/banana');
+        $syliusProduct->setDescription('Lorem ipsum');
+        $syliusProduct->setCode('banana');
+        $syliusProduct->addAttribute($firstSyliusProductAttributeValue);
+        $syliusProduct->addAttribute($secondSyliusProductAttributeValue);
 
         $factory = new ProductDocumentFactory(
             ProductDocument::class,
-            new AttributeDocumentFactory(AttributeDocument::class),
-            new ImageDocumentFactory(ImageDocument::class),
-            new PriceDocumentFactory(PriceDocument::class),
-            new TaxonDocumentFactory(TaxonDocument::class, new ImageDocumentFactory(ImageDocument::class)),
-            new VariantDocumentFactory(
-                VariantDocument::class,
-                new PriceDocumentFactory(PriceDocument::class),
-                new ImageDocumentFactory(ImageDocument::class),
-                new OptionDocumentFactory(OptionDocument::class)
-            ),
-            ['PRODUCTION_YEAR']
+            AttributeDocument::class,
+            ImageDocument::class,
+            PriceDocument::class,
+            ProductTaxonDocument::class,
+            TaxonDocument::class,
+            VariantDocument::class,
+            OptionDocument::class,
+            ['material']
         );
         /** @var ProductDocument $product */
-        $product = $factory->create(
+        $product = $factory->createFromSyliusSimpleProductModel(
             $syliusProduct,
             $syliusLocale,
             $syliusChannel
         );
 
-        $taxon = $this->makeMainTaxon();
+        $taxon = new TaxonDocument();
+        $taxon->setCode('TREE');
+        $taxon->setPosition(0);
+        $taxon->setSlug('tree');
+        $taxon->setDescription('Lorem ipsum');
 
-        $productTaxons = $this->makeProductTaxons();
+        $productTaxon = new ProductTaxonDocument();
+        $productTaxon->setCode('TREE');
+        $productTaxon->setSlug('tree');
+        $productTaxon->setPosition(1);
 
-        $productAttribute = $this->makeProductionYearAttribute();
+        $firstProductAttribute = new AttributeDocument();
+        $firstProductAttribute->setCode('material');
+        $firstProductAttribute->setName('Material');
+        $firstProductAttribute->setValue('wood');
 
-        $this->assertEquals($product->getCode(), $product->getCode());
-        $this->assertEquals($product->getName(), $product->getName());
-        $this->assertEquals('en_GB', $product->getLocaleCode());
+        $secondProductAttribute = new AttributeDocument();
+        $secondProductAttribute->setCode('size');
+        $secondProductAttribute->setName('Size');
+        $secondProductAttribute->setValue('M');
+
+        $this->assertEquals('banana', $product->getCode());
+        $this->assertEquals('Banana', $product->getName());
+        $this->assertEquals('en_US', $product->getLocaleCode());
         $this->assertEquals(
-            new Collection([$productAttribute]),
+            new Collection([
+                $firstProductAttribute,
+            ]),
             $product->getAttributes()
         );
+
         $this->assertEquals(1000, $product->getPrice()->getAmount());
-        $this->assertEquals('GBP', $product->getPrice()->getCurrency());
-        $this->assertEquals('en_GB', $product->getLocaleCode());
-        $this->assertEquals('WEB_GB', $product->getChannelCode());
-        $this->assertEquals('logan-mug', $product->getSlug());
-        $this->assertEquals('Logan Mug', $product->getName());
+        $this->assertEquals('USD', $product->getPrice()->getCurrency());
+        $this->assertEquals('en_US', $product->getLocaleCode());
+        $this->assertEquals('mobile', $product->getChannelCode());
+        $this->assertEquals('/banana', $product->getSlug());
+        $this->assertEquals('Banana', $product->getName());
         $this->assertEquals($createdAt, $product->getCreatedAt());
-        $this->assertEquals('Logan Mug', $product->getDescription());
+        $this->assertEquals('Lorem ipsum', $product->getDescription());
         $this->assertEquals($taxon, $product->getMainTaxon());
-        $this->assertEquals(new Collection($productTaxons), $product->getTaxons());
+        $this->assertEquals(new Collection([$taxon]), $product->getTaxons());
+        $this->assertEquals(new Collection([$productTaxon]), $product->getProductTaxons());
         $this->assertEquals(0.0, $product->getAverageReviewRating());
     }
 
     /**
-     * @return TaxonDocument
+     * @test
      */
-    private function makeMainTaxon(): TaxonDocument
+    public function it_creates_product_document_with_all_taxon_parents()
     {
+        $createdAt = \DateTime::createFromFormat(\DateTime::W3C, '2017-04-18T16:12:55+02:00');
+        $firstSyliusProductAttributeValue = new ProductAttributeValue();
+        $firstSyliusProductAttribute = new ProductAttribute();
+        $firstSyliusProductAttribute->setCurrentLocale('en_US');
+        $firstSyliusProductAttribute->setCode('material');
+        $firstSyliusProductAttribute->setName('Material');
+        $firstSyliusProductAttributeValue->setLocaleCode('en_US');
+        $firstSyliusProductAttribute->setType(TextAttributeType::TYPE);
+        $firstSyliusProductAttribute->setStorageType(TextAttributeType::TYPE);
+        $firstSyliusProductAttributeValue->setAttribute($firstSyliusProductAttribute);
+        $firstSyliusProductAttributeValue->setValue('wood');
+
+        $secondSyliusProductAttributeValue = new ProductAttributeValue();
+        $secondSyliusProductAttribute = new ProductAttribute();
+        $secondSyliusProductAttribute->setCurrentLocale('en_US');
+        $secondSyliusProductAttribute->setCode('size');
+        $secondSyliusProductAttribute->setName('Size');
+        $secondSyliusProductAttributeValue->setLocaleCode('en_US');
+        $secondSyliusProductAttribute->setType(TextAttributeType::TYPE);
+        $secondSyliusProductAttribute->setStorageType(TextAttributeType::TYPE);
+        $secondSyliusProductAttributeValue->setAttribute($secondSyliusProductAttribute);
+        $secondSyliusProductAttributeValue->setValue('M');
+
+        $syliusParentTaxon = new Taxon();
+        $syliusParentTaxon->setCurrentLocale('en_US');
+        $syliusParentTaxon->setCode('ROOT');
+        $syliusParentTaxon->setSlug('root');
+        $syliusParentTaxon->setDescription('Lorem ipsum');
+        $syliusParentTaxon->setPosition(0);
+
+        $syliusTaxon = new Taxon();
+        $syliusTaxon->setCurrentLocale('en_US');
+        $syliusTaxon->setCode('TREE');
+        $syliusTaxon->setSlug('tree');
+        $syliusTaxon->setDescription('Lorem ipsum');
+        $syliusTaxon->setParent($syliusParentTaxon);
+        $syliusTaxon->setPosition(0);
+
+        $syliusLocale = new Locale();
+        $syliusLocale->setCode('en_US');
+
+        $syliusProductVariant = new ProductVariant();
+        $syliusProductVariant->setCode('red_banana');
+        $syliusProductVariant->setPosition(1);
+
+        $syliusProduct = new Product();
+        $channelPrice = new ChannelPricing();
+        $syliusChannel = new Channel();
+        $currency = new Currency();
+        $currency->setCode('USD');
+
+        $syliusProductTaxon = new ProductTaxon();
+        $syliusProductTaxon->setProduct($syliusProduct);
+        $syliusProductTaxon->setTaxon($syliusTaxon);
+        $syliusProductTaxon->setPosition(1);
+        $channelPrice->setPrice(1000);
+        $channelPrice->setChannelCode('mobile');
+
+        $syliusChannel->setCode('mobile');
+        $syliusChannel->setDefaultLocale($syliusLocale);
+        $syliusChannel->addLocale($syliusLocale);
+        $syliusChannel->addCurrency($currency);
+        $syliusChannel->setBaseCurrency($currency);
+
+        $syliusProductVariant->addChannelPricing($channelPrice);
+        $syliusProduct->addVariant($syliusProductVariant);
+        $syliusProduct->addChannel($syliusChannel);
+        $syliusProduct->setMainTaxon($syliusTaxon);
+        $syliusProduct->addProductTaxon($syliusProductTaxon);
+        $syliusProduct->setCreatedAt($createdAt);
+        $syliusProduct->setCurrentLocale('en_US');
+        $syliusProduct->setName('Banana');
+        $syliusProduct->setSlug('/banana');
+        $syliusProduct->setDescription('Lorem ipsum');
+        $syliusProduct->setCode('banana');
+        $syliusProduct->addAttribute($firstSyliusProductAttributeValue);
+        $syliusProduct->addAttribute($secondSyliusProductAttributeValue);
+
+        $factory = new ProductDocumentFactory(
+            ProductDocument::class,
+            AttributeDocument::class,
+            ImageDocument::class,
+            PriceDocument::class,
+            ProductTaxonDocument::class,
+            TaxonDocument::class,
+            VariantDocument::class,
+            OptionDocument::class,
+            ['material']
+        );
+        /** @var ProductDocument $product */
+        $product = $factory->createFromSyliusSimpleProductModel(
+            $syliusProduct,
+            $syliusLocale,
+            $syliusChannel
+        );
+
         $taxon = new TaxonDocument();
-        $taxon->setCode('MUG');
+        $taxon->setCode('TREE');
         $taxon->setPosition(0);
-        $taxon->setSlug('categories/mugs');
+        $taxon->setSlug('tree');
         $taxon->setDescription('Lorem ipsum');
 
-        return $taxon;
-    }
+        $rootTaxon = new TaxonDocument();
+        $rootTaxon->setCode('ROOT');
+        $rootTaxon->setPosition(0);
+        $rootTaxon->setSlug('root');
+        $rootTaxon->setDescription('Lorem ipsum');
 
-    /**
-     * @return array
-     */
-    private function makeProductTaxons(): array
-    {
-        $productTaxons = [];
-        $productTaxon = new TaxonDocument();
-        $productTaxon->setCode('MUG');
-        $productTaxon->setSlug('categories/mugs');
-        $productTaxon->setPosition(0);
-        $productTaxon->setDescription('Lorem ipsum');
-        $productTaxons[] = $productTaxon;
-        $productTaxon = new TaxonDocument();
-        $productTaxon->setCode('BRAND');
-        $productTaxon->setSlug('brands');
-        $productTaxon->setPosition(3);
-        $productTaxon->setDescription('Lorem ipsum');
-        $productTaxons[] = $productTaxon;
+        $productTaxon = new ProductTaxonDocument();
+        $productTaxon->setCode('TREE');
+        $productTaxon->setSlug('tree');
+        $productTaxon->setPosition(1);
 
-        return $productTaxons;
-    }
+        $firstProductAttribute = new AttributeDocument();
+        $firstProductAttribute->setCode('material');
+        $firstProductAttribute->setName('Material');
+        $firstProductAttribute->setValue('wood');
 
-    /**
-     * @return AttributeDocument
-     */
-    private function makeProductionYearAttribute(): AttributeDocument
-    {
-        $productAttribute = new AttributeDocument();
-        $productAttribute->setCode('PRODUCTION_YEAR');
-        $productAttribute->setName('Production year');
-        $productAttribute->setValue('2015');
+        $secondProductAttribute = new AttributeDocument();
+        $secondProductAttribute->setCode('size');
+        $secondProductAttribute->setName('Size');
+        $secondProductAttribute->setValue('M');
 
-        return $productAttribute;
-    }
+        $this->assertEquals('banana', $product->getCode());
+        $this->assertEquals('Banana', $product->getName());
+        $this->assertEquals('en_US', $product->getLocaleCode());
+        $this->assertEquals(
+            new Collection([
+                $firstProductAttribute,
+            ]),
+            $product->getAttributes()
+        );
 
-    private function makeProductAttributes(): array
-    {
-        $productAttributes = [];
-
-        $productAttribute = new AttributeDocument();
-        $productAttribute->setCode('MUG_COLLECTION_CODE');
-        $productAttribute->setName('Mug collection');
-        $productAttribute->setValue('HOLIDAY COLLECTION');
-        $productAttributes[] = $productAttribute;
-
-        $productAttribute = new AttributeDocument();
-        $productAttribute->setCode('MUG_MATERIAL_CODE');
-        $productAttribute->setName('Mug material');
-        $productAttribute->setValue('Wood');
-        $productAttributes[] = $productAttribute;
-
-        $productAttributes[] = $this->makeProductionYearAttribute();
-
-        return $productAttributes;
+        $this->assertEquals(1000, $product->getPrice()->getAmount());
+        $this->assertEquals('USD', $product->getPrice()->getCurrency());
+        $this->assertEquals('en_US', $product->getLocaleCode());
+        $this->assertEquals('mobile', $product->getChannelCode());
+        $this->assertEquals('/banana', $product->getSlug());
+        $this->assertEquals('Banana', $product->getName());
+        $this->assertEquals($createdAt, $product->getCreatedAt());
+        $this->assertEquals('Lorem ipsum', $product->getDescription());
+        $this->assertEquals($taxon, $product->getMainTaxon());
+        $this->assertEquals(new Collection([$taxon, $rootTaxon]), $product->getTaxons());
+        $this->assertEquals(new Collection([$productTaxon]), $product->getProductTaxons());
     }
 }

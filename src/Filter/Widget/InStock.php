@@ -1,6 +1,13 @@
 <?php
 
-declare(strict_types=1);
+/*
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Sylius\ElasticSearchPlugin\Filter\Widget;
 
@@ -28,15 +35,8 @@ class InStock extends AbstractRange
      */
     public function getState(Request $request)
     {
-        $state = new FilterState();
-        $value = $request->get($this->getRequestField());
-
-        if (isset($value) && $value !== '') {
-            $value = is_array($value) ? array_values($value) : $value;
-            $state->setActive(true);
-            $state->setValue($value);
-        }
-
+        $state = parent::getState($request);
+        
         if (!$state->isActive()) {
             return $state;
         }
@@ -46,7 +46,6 @@ class InStock extends AbstractRange
         $argumentCount = count($values);
         if ($argumentCount === 0) {
             $state->setActive(false);
-
             return $state;
         }
 
@@ -59,7 +58,6 @@ class InStock extends AbstractRange
             $normalized[$gt] = $values[0];
         }
         if ($argumentCount === 2) {
-            $normalized[$gt] = $values[0];
             $normalized[$lt] = $values[1];
         }
 
@@ -108,4 +106,5 @@ class InStock extends AbstractRange
 
         return $data;
     }
+
 }

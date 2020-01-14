@@ -16,7 +16,7 @@ class AttributeDocument
      *
      * @ElasticSearch\Property(type="keyword")
      */
-    protected $code;
+    private $code;
 
     /**
      * @var string
@@ -33,7 +33,7 @@ class AttributeDocument
      *  }
      * )
      */
-    protected $name;
+    private $name;
 
     /**
      * @var mixed
@@ -50,7 +50,7 @@ class AttributeDocument
      *  }
      * )
      */
-    protected $value;
+    private $value;
 
     /**
      * @return string

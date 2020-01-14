@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
 namespace spec\Sylius\ElasticSearchPlugin\Document;
 
 use ONGR\ElasticsearchBundle\Collection\Collection;
-use PhpSpec\ObjectBehavior;
 use Sylius\ElasticSearchPlugin\Document\TaxonDocument;
+use PhpSpec\ObjectBehavior;
 
 final class TaxonDocumentSpec extends ObjectBehavior
 {

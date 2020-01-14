@@ -1,11 +1,10 @@
 {
     "page": 1,
-    "limit": 9,
+    "limit": 10,
     "total": 1,
     "pages": 1,
     "items": [
         {
-            "id": 1,
             "code": "LOGAN_MUG_CODE",
             "name": "Logan Becher",
             "slug": "@string@",
@@ -13,7 +12,6 @@
             "variants": "@array@",
             "attributes": "@array@",
             "images": "@array@",
-            "price": "@array@",
             "channelCode": "WEB_GB",
             "localeCode": "de_DE"
         }
@@ -50,6 +48,7 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE",
                 "attributes": {
                     "Becher Material": [
@@ -60,6 +59,7 @@
             "resetUrlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "name": "attributes",
@@ -70,6 +70,7 @@
                     "resetUrlParameters": {
                         "channel": "WEB_GB",
                         "enabled": true,
+                        "stock": "1",
                         "locale": "de_DE"
                     },
                     "name": "Becher Material",
@@ -80,6 +81,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "attributes": {
                                     "Becher Material": []
@@ -96,6 +98,7 @@
                     "resetUrlParameters": {
                         "channel": "WEB_GB",
                         "enabled": true,
+                        "stock": "1",
                         "locale": "de_DE"
                     },
                     "name": "Becher Sammlung",
@@ -106,6 +109,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "attributes": {
                                     "Becher Material": [
@@ -127,6 +131,7 @@
                     "resetUrlParameters": {
                         "channel": "WEB_GB",
                         "enabled": true,
+                        "stock": "1",
                         "locale": "de_DE"
                     },
                     "name": "Produktionsjahr",
@@ -137,6 +142,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "attributes": {
                                     "Becher Material": [

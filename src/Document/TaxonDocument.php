@@ -8,7 +8,7 @@ use ONGR\ElasticsearchBundle\Annotation as ElasticSearch;
 use ONGR\ElasticsearchBundle\Collection\Collection;
 
 /**
- * @ElasticSearch\Nested()
+ * @ElasticSearch\Object
  */
 class TaxonDocument
 {
@@ -17,35 +17,35 @@ class TaxonDocument
      *
      * @ElasticSearch\Property(type="keyword")
      */
-    protected $code;
+    private $code;
 
     /**
      * @var string
      *
      * @ElasticSearch\Property(type="keyword")
      */
-    protected $slug;
+    private $slug;
 
     /**
      * @var int
      *
      * @ElasticSearch\Property(type="integer")
      */
-    protected $position = 0;
+    private $position = 0;
 
     /**
      * @var ImageDocument[]|Collection
      *
      * @ElasticSearch\Embedded(class="Sylius\ElasticSearchPlugin\Document\ImageDocument", multiple=true)
      */
-    protected $images;
+    private $images;
 
     /**
      * @var string
      *
      * @ElasticSearch\Property(type="text")
      */
-    protected $description;
+    private $description;
 
     public function __construct()
     {

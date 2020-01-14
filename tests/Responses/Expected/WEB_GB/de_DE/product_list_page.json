@@ -1,11 +1,10 @@
 {
     "page": 1,
-    "limit": 9,
+    "limit": 10,
     "total": 3,
     "pages": 1,
     "items": [
         {
-            "id": 1,
             "code": "LOGAN_MUG_CODE",
             "name": "Logan Becher",
             "slug": "logan-becher",
@@ -13,117 +12,86 @@
                 "main": "MUG",
                 "others": [
                     "MUG",
+                    "CATEGORY",
                     "BRAND"
                 ]
             },
-            "variants": [
-                {
-                    "id": 2,
-                    "code": "LOGAN_MUG_SMALL_CODE",
-                    "name": "Gnome Becher",
-                    "price": {
-                        "current": 1000,
-                        "currency": "GBP",
-                        "original": 0
-                    },
-                    "stock": 0,
-                    "isTracked": true,
-                    "images": []
-                },
-                {
-                    "id": 1,
-                    "code": "LOGAN_MUG_BIG_CODE",
+            "variants": {
+                "LOGAN_MUG_CODE": {
+                    "code": "LOGAN_MUG_CODE",
                     "name": "Logan Becher",
                     "price": {
                         "current": 1000,
-                        "currency": "GBP",
-                        "original": 0
+                        "currency": "GBP"
                     },
-                    "stock": 0,
-                    "isTracked": false,
                     "images": []
                 }
-            ],
-            "attributes": {
-                "PRODUCTION_YEAR": {
+            },
+            "attributes": [
+                {
                     "code": "PRODUCTION_YEAR",
                     "name": "Produktionsjahr",
                     "value": "2015"
                 },
-                "MUG_COLLECTION_CODE": {
+                {
                     "code": "MUG_COLLECTION_CODE",
                     "name": "Becher Sammlung",
                     "value": "FEIERTAGSKOLLEKTION"
                 },
-                "MUG_MATERIAL_CODE": {
+                {
                     "code": "MUG_MATERIAL_CODE",
                     "name": "Becher Material",
                     "value": "Holz"
                 }
-            },
+            ],
             "images": [],
-            "price": {
-                "current": 1000,
-                "currency": "GBP",
-                "original": 0
-            },
             "channelCode": "WEB_GB",
             "localeCode": "de_DE"
         },
         {
-            "id": 2,
             "code": "LOGAN_HAT_CODE",
             "name": "Logan Hut",
             "slug": "logan-hut",
             "taxons": {
                 "others": [
                     "HAT",
+                    "CATEGORY",
                     "BRAND"
                 ]
             },
-            "variants": [
-                {
-                    "id": 3,
+            "variants": {
+                "LOGAN_HAT_CODE": {
                     "code": "LOGAN_HAT_CODE",
                     "name": "Logan Hut",
                     "price": {
                         "current": 1500,
-                        "currency": "GBP",
-                        "original": 0
+                        "currency": "GBP"
                     },
-                    "stock": 2,
-                    "isTracked": true,
                     "images": []
                 }
-            ],
-            "attributes": {
-                "PRODUCTION_YEAR": {
+            },
+            "attributes": [
+                {
                     "code": "PRODUCTION_YEAR",
                     "name": "Produktionsjahr",
                     "value": "2010"
                 },
-                "MUG_COLLECTION_CODE": {
+                {
                     "code": "MUG_COLLECTION_CODE",
                     "name": "Becher Sammlung",
                     "value": "FEIERTAGSKOLLEKTION"
                 },
-                "AVAILABLE_FROM": {
+                {
                     "code": "AVAILABLE_FROM",
                     "name": "Verf\u00fcgbar ab",
                     "value": "2010-01-01T00:00:00+0000"
                 }
-            },
+            ],
             "images": [],
-            "price": {
-                "current": 1500,
-                "currency": "GBP",
-                "original": 0
-            },
             "channelCode": "WEB_GB",
             "localeCode": "de_DE"
         },
         {
-            "id": 3,
             "code": "LOGAN_T_SHIRT_CODE",
             "name": "Logan T-Shirt",
             "slug": "logan-t-shirt",
@@ -131,76 +99,29 @@
                 "main": "T_SHIRTS",
                 "others": [
                     "T_SHIRTS",
+                    "CATEGORY",
                     "BRAND"
                 ]
             },
-            "variants": [
-                {
-                    "id": 7,
-                    "code": "EXTRA_LARGE_LOGAN_T_SHIRT_CODE",
-                    "name": "Extra Large Logan T-Shirt",
+            "variants": {
+                "LOGAN_T_SHIRT_CODE": {
+                    "code": "LOGAN_T_SHIRT_CODE",
+                    "name": "Logan T-Shirt",
                     "price": {
                         "current": 2000,
-                        "currency": "GBP",
-                        "original": 0
+                        "currency": "GBP"
                     },
-                    "stock": 1,
-                    "isTracked": true,
-                    "images": []
-                },
-                {
-                    "id": 6,
-                    "code": "LARGE_LOGAN_T_SHIRT_CODE",
-                    "name": "Large Logan T-Shirt",
-                    "price": {
-                        "current": 2000,
-                        "currency": "GBP",
-                        "original": 0
-                    },
-                    "stock": 1,
-                    "isTracked": true,
-                    "images": []
-                },
-                {
-                    "id": 5,
-                    "code": "MEDIUM_LOGAN_T_SHIRT_CODE",
-                    "name": "Medium Logan T-Shirt",
-                    "price": {
-                        "current": 2000,
-                        "currency": "GBP",
-                        "original": 0
-                    },
-                    "stock": 1,
-                    "isTracked": true,
-                    "images": []
-                },
-                {
-                    "id": 4,
-                    "code": "SMALL_LOGAN_T_SHIRT_CODE",
-                    "name": "Small Logan T-Shirt",
-                    "price": {
-                        "current": 2000,
-                        "currency": "GBP",
-                        "original": 0
-                    },
-                    "stock": 1,
-                    "isTracked": true,
                     "images": []
                 }
-            ],
-            "attributes": {
-                "PRODUCTION_YEAR": {
+            },
+            "attributes": [
+                {
                     "code": "PRODUCTION_YEAR",
                     "name": "Produktionsjahr",
                     "value": "2020"
                 }
-            },
+            ],
             "images": [],
-            "price": {
-                "current": 2000,
-                "currency": "GBP",
-                "original": 0
-            },
             "channelCode": "WEB_GB",
             "localeCode": "de_DE"
         }
@@ -220,10 +141,12 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "resetUrlParameters": {
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "name": "channel",
@@ -233,6 +156,7 @@
                     "default": false,
                     "urlParameters": {
                         "enabled": true,
+                        "stock": "1",
                         "locale": "de_DE",
                         "channel": "WEB_DE"
                     },
@@ -244,6 +168,7 @@
                     "default": false,
                     "urlParameters": {
                         "enabled": true,
+                        "stock": "1",
                         "locale": "de_DE"
                     },
                     "label": "WEB_GB",
@@ -265,10 +190,12 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "resetUrlParameters": {
                 "channel": "WEB_GB",
+                "stock": "1",
                 "locale": "de_DE"
             },
             "name": "enabled",
@@ -278,6 +205,7 @@
                     "default": false,
                     "urlParameters": {
                         "channel": "WEB_GB",
+                        "stock": "1",
                         "locale": "de_DE",
                         "enabled": 0
                     },
@@ -289,6 +217,7 @@
                     "default": false,
                     "urlParameters": {
                         "channel": "WEB_GB",
+                        "stock": "1",
                         "locale": "de_DE"
                     },
                     "label": 1,
@@ -307,15 +236,83 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "resetUrlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "name": "taxonCode",
-            "choices": []
+            "choices": [
+                {
+                    "active": false,
+                    "default": false,
+                    "urlParameters": {
+                        "channel": "WEB_GB",
+                        "enabled": true,
+                        "stock": "1",
+                        "locale": "de_DE",
+                        "taxonCode": "HAT"
+                    },
+                    "label": "HAT",
+                    "count": 1
+                },
+                {
+                    "active": false,
+                    "default": false,
+                    "urlParameters": {
+                        "channel": "WEB_GB",
+                        "enabled": true,
+                        "stock": "1",
+                        "locale": "de_DE",
+                        "taxonCode": "MUG"
+                    },
+                    "label": "MUG",
+                    "count": 1
+                },
+                {
+                    "active": false,
+                    "default": false,
+                    "urlParameters": {
+                        "channel": "WEB_GB",
+                        "enabled": true,
+                        "stock": "1",
+                        "locale": "de_DE",
+                        "taxonCode": "T_SHIRTS"
+                    },
+                    "label": "T_SHIRTS",
+                    "count": 1
+                },
+                {
+                    "active": false,
+                    "default": false,
+                    "urlParameters": {
+                        "channel": "WEB_GB",
+                        "enabled": true,
+                        "stock": "1",
+                        "locale": "de_DE",
+                        "taxonCode": "BRAND"
+                    },
+                    "label": "BRAND",
+                    "count": 3
+                },
+                {
+                    "active": false,
+                    "default": false,
+                    "urlParameters": {
+                        "channel": "WEB_GB",
+                        "enabled": true,
+                        "stock": "1",
+                        "locale": "de_DE",
+                        "taxonCode": "CATEGORY"
+                    },
+                    "label": "CATEGORY",
+                    "count": 3
+                }
+            ]
         },
         "taxonSlug": {
             "state": {
@@ -328,15 +325,83 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "resetUrlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "name": "taxonSlug",
-            "choices": []
+            "choices": [
+                {
+                    "active": false,
+                    "default": false,
+                    "urlParameters": {
+                        "channel": "WEB_GB",
+                        "enabled": true,
+                        "stock": "1",
+                        "locale": "de_DE",
+                        "taxonSlug": "kategorien\/1t-shirts"
+                    },
+                    "label": "kategorien\/1t-shirts",
+                    "count": 1
+                },
+                {
+                    "active": false,
+                    "default": false,
+                    "urlParameters": {
+                        "channel": "WEB_GB",
+                        "enabled": true,
+                        "stock": "1",
+                        "locale": "de_DE",
+                        "taxonSlug": "kategorien\/1tassen"
+                    },
+                    "label": "kategorien\/1tassen",
+                    "count": 1
+                },
+                {
+                    "active": false,
+                    "default": false,
+                    "urlParameters": {
+                        "channel": "WEB_GB",
+                        "enabled": true,
+                        "stock": "1",
+                        "locale": "de_DE",
+                        "taxonSlug": "kategorien\/hut"
+                    },
+                    "label": "kategorien\/hut",
+                    "count": 1
+                },
+                {
+                    "active": false,
+                    "default": false,
+                    "urlParameters": {
+                        "channel": "WEB_GB",
+                        "enabled": true,
+                        "stock": "1",
+                        "locale": "de_DE",
+                        "taxonSlug": "kategorien"
+                    },
+                    "label": "kategorien",
+                    "count": 3
+                },
+                {
+                    "active": false,
+                    "default": false,
+                    "urlParameters": {
+                        "channel": "WEB_GB",
+                        "enabled": true,
+                        "stock": "1",
+                        "locale": "de_DE",
+                        "taxonSlug": "marken"
+                    },
+                    "label": "marken",
+                    "count": 3
+                }
+            ]
         },
         "priceRange": {
             "state": {
@@ -349,11 +414,13 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "resetUrlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "name": "priceRange",
@@ -366,7 +433,9 @@
                 "value": {
                     "gte": "1"
                 },
-                "urlParameters": [],
+                "urlParameters": {
+                    "stock": "1"
+                },
                 "name": "inStock",
                 "options": []
             },
@@ -374,6 +443,7 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "resetUrlParameters": {
@@ -397,11 +467,13 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "resetUrlParameters": {
                 "channel": "WEB_GB",
-                "enabled": true
+                "enabled": true,
+                "stock": "1"
             },
             "name": "locale",
             "choices": [
@@ -410,7 +482,8 @@
                     "default": false,
                     "urlParameters": {
                         "channel": "WEB_GB",
-                        "enabled": true
+                        "enabled": true,
+                        "stock": "1"
                     },
                     "label": "de_DE",
                     "count": 3
@@ -421,6 +494,7 @@
                     "urlParameters": {
                         "channel": "WEB_GB",
                         "enabled": true,
+                        "stock": "1",
                         "locale": "en_GB"
                     },
                     "label": "en_GB",
@@ -435,28 +509,30 @@
                 "urlParameters": [],
                 "name": "paginator",
                 "options": {
-                    "limit": 9
+                    "limit": 10
                 }
             },
             "tags": [],
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "resetUrlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "name": "paginator",
             "currentPage": 1,
             "totalItems": 3,
             "maxPages": 20,
-            "itemsPerPage": 9,
+            "itemsPerPage": 10,
             "numPages": 1,
             "options": [],
-            "limit": 9
+            "limit": 10
         },
         "search": {
             "state": {
@@ -469,11 +545,13 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "resetUrlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "name": "search"
@@ -489,11 +567,13 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "resetUrlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "name": "attributes",
@@ -504,6 +584,7 @@
                     "resetUrlParameters": {
                         "channel": "WEB_GB",
                         "enabled": true,
+                        "stock": "1",
                         "locale": "de_DE"
                     },
                     "name": "Becher Material",
@@ -514,6 +595,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "attributes": {
                                     "Becher Material": [
@@ -532,6 +614,7 @@
                     "resetUrlParameters": {
                         "channel": "WEB_GB",
                         "enabled": true,
+                        "stock": "1",
                         "locale": "de_DE"
                     },
                     "name": "Becher Sammlung",
@@ -542,6 +625,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "attributes": {
                                     "Becher Sammlung": [
@@ -560,6 +644,7 @@
                     "resetUrlParameters": {
                         "channel": "WEB_GB",
                         "enabled": true,
+                        "stock": "1",
                         "locale": "de_DE"
                     },
                     "name": "Produktionsjahr",
@@ -570,6 +655,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "attributes": {
                                     "Produktionsjahr": [
@@ -586,6 +672,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "attributes": {
                                     "Produktionsjahr": [
@@ -602,6 +689,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "attributes": {
                                     "Produktionsjahr": [
@@ -620,6 +708,7 @@
                     "resetUrlParameters": {
                         "channel": "WEB_GB",
                         "enabled": true,
+                        "stock": "1",
                         "locale": "de_DE"
                     },
                     "name": "Verf\u00fcgbar ab",
@@ -630,6 +719,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "attributes": {
                                     "Verf\u00fcgbar ab": [
@@ -655,11 +745,13 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "resetUrlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "name": "attributesByCode"
@@ -675,11 +767,13 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "resetUrlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "name": "options",
@@ -690,6 +784,7 @@
                     "resetUrlParameters": {
                         "channel": "WEB_GB",
                         "enabled": true,
+                        "stock": "1",
                         "locale": "de_DE"
                     },
                     "name": "Bechergr\u00f6\u00dfe",
@@ -700,6 +795,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "options": {
                                     "Bechergr\u00f6\u00dfe": [
@@ -716,6 +812,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "options": {
                                     "Bechergr\u00f6\u00dfe": [
@@ -734,6 +831,7 @@
                     "resetUrlParameters": {
                         "channel": "WEB_GB",
                         "enabled": true,
+                        "stock": "1",
                         "locale": "de_DE"
                     },
                     "name": "Hutgr\u00f6\u00dfe",
@@ -744,6 +842,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "options": {
                                     "Hutgr\u00f6\u00dfe": [
@@ -762,6 +861,7 @@
                     "resetUrlParameters": {
                         "channel": "WEB_GB",
                         "enabled": true,
+                        "stock": "1",
                         "locale": "de_DE"
                     },
                     "name": "T-Shirt Gr\u00f6\u00dfe",
@@ -772,6 +872,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "options": {
                                     "T-Shirt Gr\u00f6\u00dfe": [
@@ -788,6 +889,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "options": {
                                     "T-Shirt Gr\u00f6\u00dfe": [
@@ -804,6 +906,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "options": {
                                     "T-Shirt Gr\u00f6\u00dfe": [
@@ -820,6 +923,7 @@
                             "urlParameters": {
                                 "channel": "WEB_GB",
                                 "enabled": true,
+                                "stock": "1",
                                 "locale": "de_DE",
                                 "options": {
                                     "T-Shirt Gr\u00f6\u00dfe": [
@@ -845,11 +949,13 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "resetUrlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "de_DE"
             },
             "name": "sort"

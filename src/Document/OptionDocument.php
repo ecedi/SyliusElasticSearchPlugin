@@ -16,7 +16,7 @@ class OptionDocument
      *
      * @ElasticSearch\Property(type="keyword")
      */
-    protected $code;
+    private $code;
 
     /**
      * @var string
@@ -33,7 +33,7 @@ class OptionDocument
      *  }
      * )
      */
-    protected $name;
+    private $name;
 
     /**
      * @var string
@@ -50,7 +50,7 @@ class OptionDocument
      *  }
      * )
      */
-    protected $value;
+    private $value;
 
     /**
      * @return string
@@ -99,4 +99,5 @@ class OptionDocument
     {
         $this->value = $value;
     }
+
 }

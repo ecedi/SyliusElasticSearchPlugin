@@ -5,7 +5,6 @@
     "pages": 2,
     "items": [
         {
-            "id": 1,
             "code": "LOGAN_MUG_CODE",
             "name": "Logan Mug",
             "slug": "@string@",
@@ -13,12 +12,10 @@
             "variants": "@array@",
             "attributes": "@array@",
             "images": "@array@",
-            "price": "@array@",
             "channelCode": "WEB_GB",
             "localeCode": "en_GB"
         },
         {
-            "id": 2,
             "code": "LOGAN_HAT_CODE",
             "name": "Logan Hat",
             "slug": "@string@",
@@ -26,7 +23,6 @@
             "variants": "@array@",
             "attributes": "@array@",
             "images": "@array@",
-            "price": "@array@",
             "channelCode": "WEB_GB",
             "localeCode": "en_GB"
         }
@@ -53,11 +49,13 @@
             "urlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "en_GB"
             },
             "resetUrlParameters": {
                 "channel": "WEB_GB",
                 "enabled": true,
+                "stock": "1",
                 "locale": "en_GB"
             },
             "name": "paginator",

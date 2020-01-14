@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace spec\Sylius\ElasticSearchPlugin\Document;
 
-use PhpSpec\ObjectBehavior;
 use Sylius\ElasticSearchPlugin\Document\AttributeDocument;
+use PhpSpec\ObjectBehavior;
 
 final class AttributeDocumentSpec extends ObjectBehavior
 {

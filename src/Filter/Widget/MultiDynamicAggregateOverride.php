@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Sylius\ElasticSearchPlugin\Filter\Widget;
 
+use ONGR\FilterManagerBundle\Filter\Widget\Dynamic\MultiDynamicAggregate;
+use ONGR\ElasticsearchDSL\Aggregation\Bucketing\TermsAggregation;
 use ONGR\ElasticsearchDSL\Aggregation\Bucketing\FilterAggregation;
 use ONGR\ElasticsearchDSL\Aggregation\Bucketing\NestedAggregation;
-use ONGR\ElasticsearchDSL\Aggregation\Bucketing\TermsAggregation;
 use ONGR\ElasticsearchDSL\Query\MatchAllQuery;
 use ONGR\ElasticsearchDSL\Search;
 use ONGR\FilterManagerBundle\Filter\FilterState;
-use ONGR\FilterManagerBundle\Filter\Widget\Dynamic\MultiDynamicAggregate;
 
 /**
  * Class MultiDynamicAggregateOverride implements the size option handling in the preProcessSearch method to be able
@@ -18,6 +18,8 @@ use ONGR\FilterManagerBundle\Filter\Widget\Dynamic\MultiDynamicAggregate;
  * to change that globally - only via the query options for the aggregation object.
  * All other multi dynamic aggregates are extending from this class in the plugin. Size option is implemented in other
  * types of filters by the FilterManagerBundle
+ *
+ * @package Sylius\ElasticSearchPlugin\Filter\Widget
  */
 class MultiDynamicAggregateOverride extends MultiDynamicAggregate
 {
@@ -26,7 +28,7 @@ class MultiDynamicAggregateOverride extends MultiDynamicAggregate
      */
     public function preProcessSearch(Search $search, Search $relatedSearch, FilterState $state = null)
     {
-        [$path, $field] = explode('>', $this->getDocumentField());
+        list($path, $field) = explode('>', $this->getDocumentField());
         $filter = !empty($filter = $relatedSearch->getPostFilters()) ? $filter : new MatchAllQuery();
         $aggregation = new NestedAggregation($state->getName(), $path);
         $nameAggregation = new TermsAggregation('name', $this->getNameField());

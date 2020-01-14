@@ -1,6 +1,13 @@
 <?php
 
-declare(strict_types=1);
+/*
+ * This file is part of the Sylius package.
+ *
+ * (c) Paweł Jędrzejewski
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Sylius\ElasticSearchPlugin\Controller;
 
@@ -8,7 +15,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use ONGR\FilterManagerBundle\Search\FilterManagerInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\ElasticSearchPlugin\Factory\View\ProductListViewFactoryInterface;
+use Sylius\ElasticSearchPlugin\Factory\ProductListViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -24,7 +31,7 @@ final class SearchController
     private $restViewHandler;
 
     /**
-     * @var \Sylius\ElasticSearchPlugin\Factory\View\ProductListViewFactoryInterface
+     * @var ProductListViewFactoryInterface
      */
     private $productListViewFactory;
 
@@ -40,7 +47,7 @@ final class SearchController
 
     /**
      * @param ViewHandlerInterface $restViewHandler
-     * @param \Sylius\ElasticSearchPlugin\Factory\View\ProductListViewFactoryInterface $productListViewFactory
+     * @param ProductListViewFactoryInterface $productListViewFactory
      * @param FilterManagerInterface $filterManager
      * @param RepositoryInterface $channelRepository
      */
@@ -84,11 +91,11 @@ final class SearchController
 
         if (!$request->query->has('sort')) {
             if (null !== $request->get('taxonCode')) {
-                $request->query->set('sort', ['taxonPositionByCode' => [$request->get('taxonCode') => 'asc']]);
+                $request->query->set('sort', ['taxonPositionByCode' => [$request->get('taxonCode') => 'ASC']]);
             }
 
             if (null !== $request->get('taxonSlug')) {
-                $request->query->set('sort', ['taxonPositionBySlug' => [$request->get('taxonSlug') => 'asc']]);
+                $request->query->set('sort', ['taxonPositionBySlug' => [$request->get('taxonSlug') => 'ASC']]);
             }
         }
 

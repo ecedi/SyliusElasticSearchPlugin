@@ -1,11 +1,10 @@
 {
     "page": 1,
-    "limit": 9,
+    "limit": 10,
     "total": 2,
     "pages": 1,
     "items": [
         {
-            "id": 1,
             "code": "LOGAN_MUG_CODE",
             "name": "Logan Mug",
             "slug": "@string@",
@@ -13,12 +12,10 @@
             "variants": "@array@",
             "attributes": "@array@",
             "images": "@array@",
-            "price": "@array@",
             "channelCode": "WEB_GB",
             "localeCode": "en_GB"
         },
         {
-            "id": 3,
             "code": "LOGAN_T_SHIRT_CODE",
             "name": "Logan T-Shirt",
             "slug": "@string@",
@@ -26,7 +23,6 @@
             "variants": "@array@",
             "attributes": "@array@",
             "images": "@array@",
-            "price": "@array@",
             "channelCode": "WEB_GB",
             "localeCode": "en_GB"
         }

@@ -13,11 +13,10 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\ElasticSearchPlugin\Document\ProductDocument;
-use Sylius\ElasticSearchPlugin\Factory\Document\ProductDocumentFactoryInterface;
+use Sylius\ElasticSearchPlugin\Factory\ProductDocumentFactoryInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Filesystem\LockHandler;
 
 final class UpdateProductIndexCommand extends Command
 {
@@ -72,46 +71,30 @@ final class UpdateProductIndexCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $lockHandler = new LockHandler('sylius-elastic-index-update');
-        if ($lockHandler->lock()) {
-            $processedProductsCodes = [];
-            $productDocumentsWaitingForCommit = 0;
+        $processedProductsCodes = [];
 
-            $search = $this->productDocumentRepository->createSearch();
-            $search->setScroll('10m');
-            $search->addSort(new FieldSort('synchronised_at', 'asc'));
+        $search = $this->productDocumentRepository->createSearch();
+        $search->setScroll('10m');
+        $search->addSort(new FieldSort('synchronised_at', 'ASC'));
 
-            /** @var DocumentIterator|ProductDocument[] $productDocuments */
-            $productDocuments = $this->productDocumentRepository->findDocuments($search);
+        /** @var DocumentIterator|ProductDocument[] $productDocuments */
+        $productDocuments = $this->productDocumentRepository->findDocuments($search);
 
-            foreach ($productDocuments as $productDocument) {
-                $productCode = $productDocument->getCode();
+        foreach ($productDocuments as $productDocument) {
+            $productCode = $productDocument->getCode();
 
-                if (isset($processedProductsCodes[$productCode])) {
-                    continue;
-                }
-
-                $output->writeln(sprintf('Updating product with code "%s"', $productCode));
-
-                $this->scheduleCreatingNewProductDocuments($productCode);
-                $this->scheduleRemovingOldProductDocuments($productCode);
-
-                ++$productDocumentsWaitingForCommit;
-                if (($productDocumentsWaitingForCommit % 100) === 0) {
-                    $this->elasticsearchManager->commit();
-                    $productDocumentsWaitingForCommit = 0;
-                }
-
-                $processedProductsCodes[$productCode] = 1;
+            if (in_array($productCode, $processedProductsCodes, true)) {
+                continue;
             }
 
-            if ($productDocumentsWaitingForCommit > 0) {
-                $this->elasticsearchManager->commit();
-            }
-            $lockHandler->release();
-            $output->writeln('Updates done');
-        } else {
-            $output->writeln(sprintf('<info>Command is already running</info>'));
+            $output->writeln(sprintf('Updating product with code "%s"', $productCode));
+
+            $this->scheduleCreatingNewProductDocuments($productCode);
+            $this->scheduleRemovingOldProductDocuments($productCode);
+
+            $this->elasticsearchManager->commit();
+
+            $processedProductsCodes[] = $productCode;
         }
     }
 
@@ -132,7 +115,7 @@ final class UpdateProductIndexCommand extends Command
             $locales = $channel->getLocales();
 
             foreach ($locales as $locale) {
-                $this->elasticsearchManager->persist($this->productDocumentFactory->create(
+                $this->elasticsearchManager->persist($this->productDocumentFactory->createFromSyliusSimpleProductModel(
                     $product,
                     $locale,
                     $channel

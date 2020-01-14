@@ -16,21 +16,14 @@ class PriceDocument
      *
      * @ElasticSearch\Property(type="integer")
      */
-    protected $amount;
-
-    /**
-     * @var int
-     *
-     * @ElasticSearch\Property(type="integer")
-     */
-    protected $originalAmount = 0;
+    private $amount;
 
     /**
      * @var string
      *
      * @ElasticSearch\Property(type="keyword")
      */
-    protected $currency;
+    private $currency;
 
     /**
      * @return int
@@ -46,22 +39,6 @@ class PriceDocument
     public function setAmount(int $amount): void
     {
         $this->amount = $amount;
-    }
-
-    /**
-     * @return int
-     */
-    public function getOriginalAmount(): int
-    {
-        return $this->originalAmount;
-    }
-
-    /**
-     * @param int $originalAmount
-     */
-    public function setOriginalAmount(int $originalAmount = 0): void
-    {
-        $this->originalAmount = $originalAmount;
     }
 
     /**

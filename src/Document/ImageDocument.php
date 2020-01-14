@@ -16,14 +16,14 @@ class ImageDocument
      *
      * @ElasticSearch\Property(type="keyword")
      */
-    protected $code;
+    private $code;
 
     /**
      * @var string
      *
      * @ElasticSearch\Property(type="keyword")
      */
-    protected $path;
+    private $path;
 
     /**
      * @return string

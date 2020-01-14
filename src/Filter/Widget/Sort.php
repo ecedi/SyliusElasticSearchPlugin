@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Sylius\ElasticSearchPlugin\Filter\Widget;
 
-use ONGR\ElasticsearchBundle\Result\DocumentIterator;
+use ONGR\ElasticsearchDSL\Query\Joining\NestedQuery;
 use ONGR\ElasticsearchDSL\Query\TermLevel\TermQuery;
 use ONGR\ElasticsearchDSL\Search;
+use ONGR\ElasticsearchBundle\Result\DocumentIterator;
 use ONGR\ElasticsearchDSL\Sort\FieldSort;
 use ONGR\FilterManagerBundle\Filter\FilterState;
 use ONGR\FilterManagerBundle\Filter\Helper\ViewDataFactoryInterface;
@@ -114,8 +115,8 @@ final class Sort extends AbstractFilter implements ViewDataFactoryInterface
     private function addPositionFieldToSort(Search $search, string $identifier, array $settings): void
     {
         foreach ($settings as $taxonIdentifier => $sortingOrder) {
-            $fieldSort = new FieldSort('taxons.position', $sortingOrder, ['nested_path' => 'taxons']);
-            $fieldSort->setNestedFilter(new TermQuery(sprintf('taxons.%s', $identifier), $taxonIdentifier));
+            $fieldSort = new FieldSort('product_taxons.position', $sortingOrder, ['nested_path' => 'product_taxons']);
+            $fieldSort->setNestedFilter(new TermQuery(sprintf('product_taxons.%s', $identifier), $taxonIdentifier));
 
             $search->addSort($fieldSort);
         }

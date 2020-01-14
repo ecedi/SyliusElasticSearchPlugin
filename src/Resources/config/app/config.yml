@@ -40,13 +40,13 @@ ongr_filter_manager:
             request_field: enabled
             document_field: enabled
         taxonCode:
-            type: sylius_elastic_search.choice_nested
+            type: choice
             request_field: taxonCode
-            document_field: taxons>taxons.code
+            document_field: taxons.code
         taxonSlug:
-            type: sylius_elastic_search.choice_nested
+            type: choice
             request_field: taxonSlug
-            document_field: taxons>taxons.slug
+            document_field: taxons.slug
         priceRange:
             type: range
             request_field: price
@@ -68,7 +68,7 @@ ongr_filter_manager:
             document_field: ~
             request_field: page
             options:
-                limit: 9
+                limit: 10
                 max_pages: 20
         attributes:
             type: sylius_elastic_search.multi_dynamic_aggregate
@@ -113,4 +113,3 @@ ongr_filter_manager:
                     slug: slug
                     code: code
                     price: price.amount
-                    date: created_at

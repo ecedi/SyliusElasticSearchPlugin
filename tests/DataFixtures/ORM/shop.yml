@@ -106,44 +106,6 @@ Sylius\Component\Product\Model\ProductAttributeTranslation:
         name: "Available from"
         translatable: "@available_from"
 
-Sylius\Component\Product\Model\ProductAttribute:
-    mug_collection:
-        fallbackLocale: "en_GB"
-        currentLocale: "en_GB"
-        code: "MUG_COLLECTION_CODE"
-        type: "text"
-        storage_type: "text"
-        translations:
-            - "@mug_collection_en_gb_translation"
-            - "@mug_collection_de_de_translation"
-    mug_material:
-        fallbackLocale: "en_GB"
-        currentLocale: "en_GB"
-        code: "MUG_MATERIAL_CODE"
-        type: "text"
-        storage_type: "text"
-        translations:
-            - "@mug_material_en_gb_translation"
-            - "@mug_material_de_de_translation"
-    production_year:
-        fallbackLocale: "en_GB"
-        currentLocale: "en_GB"
-        code: "PRODUCTION_YEAR"
-        type: "text"
-        storage_type: "text"
-        translations:
-            - "@production_year_en_gb_translation"
-            - "@production_year_de_de_translation"
-    available_from:
-        fallbackLocale: "en_GB"
-        currentLocale: "en_GB"
-        code: "AVAILABLE_FROM"
-        type: "date"
-        storage_type: "date"
-        translations:
-            - "@available_from_en_gb_translation"
-            - "@available_from_de_de_translation"
-
 Sylius\Component\Product\Model\ProductAttributeValue:
     en_gb_mug_holiday_collection_value:
         subject: "@mug"
@@ -185,16 +147,6 @@ Sylius\Component\Product\Model\ProductAttributeValue:
         attribute: "@production_year"
         localeCode: "de_DE"
         text: "2020"
-    en_gb_hat_holiday_collection_value:
-        subject: "@hat"
-        attribute: "@mug_collection"
-        localeCode: "en_GB"
-        text: "HOLIDAY COLLECTION"
-    de_de_hat_holiday_collection_value:
-        subject: "@hat"
-        attribute: "@mug_collection"
-        localeCode: "de_DE"
-        text: "FEIERTAGSKOLLEKTION"
     en_gb_production_year_value_hat:
         subject: "@hat"
         attribute: "@production_year"
@@ -215,6 +167,44 @@ Sylius\Component\Product\Model\ProductAttributeValue:
         attribute: "@available_from"
         localeCode: "de_DE"
         date: "<(new \\DateTime('2010-01-01 00:00:00', new \\DateTimeZone('UTC')))>"
+
+Sylius\Component\Product\Model\ProductAttribute:
+    mug_collection:
+        fallbackLocale: "en_GB"
+        currentLocale: "en_GB"
+        code: "MUG_COLLECTION_CODE"
+        type: "text"
+        storage_type: "text"
+        translations:
+            - "@mug_collection_en_gb_translation"
+            - "@mug_collection_de_de_translation"
+    mug_material:
+        fallbackLocale: "en_GB"
+        currentLocale: "en_GB"
+        code: "MUG_MATERIAL_CODE"
+        type: "text"
+        storage_type: "text"
+        translations:
+            - "@mug_material_en_gb_translation"
+            - "@mug_material_de_de_translation"
+    production_year:
+        fallbackLocale: "en_GB"
+        currentLocale: "en_GB"
+        code: "PRODUCTION_YEAR"
+        type: "text"
+        storage_type: "text"
+        translations:
+            - "@production_year_en_gb_translation"
+            - "@production_year_de_de_translation"
+    available_from:
+        fallbackLocale: "en_GB"
+        currentLocale: "en_GB"
+        code: "AVAILABLE_FROM"
+        type: "date"
+        storage_type: "date"
+        translations:
+            - "@available_from_en_gb_translation"
+            - "@available_from_de_de_translation"
 
 Sylius\Component\Core\Model\Product:
     mug:
@@ -245,8 +235,8 @@ Sylius\Component\Core\Model\Product:
         attributes:
             - "@en_gb_production_year_value_hat"
             - "@de_de_production_year_value_hat"
-            - "@en_gb_hat_holiday_collection_value"
-            - "@de_de_hat_holiday_collection_value"
+            - "@en_gb_mug_holiday_collection_value"
+            - "@de_de_mug_holiday_collection_value"
             - "@en_gb_available_from_value_hat"
             - "@de_de_available_from_value_hat"
         variants: ["@hat_variant"]
@@ -304,52 +294,6 @@ Sylius\Component\Core\Model\ChannelPricing:
     gb_small_disabled_t_shirt_web_channel_pricing:
         channelCode: "WEB_GB"
         price: 1500
-
-Sylius\Component\Product\Model\ProductVariantTranslation:
-    en_gb_mug_variant_big_translation:
-        locale: "en_GB"
-        name: "Logan Mug"
-        translatable: "@mug_variant_big"
-    de_de_mug_variant_big_translation:
-        locale: "de_DE"
-        name: "Logan Becher"
-        translatable: "@mug_variant_big"
-    en_gb_mug_variant_small_translation:
-        locale: "en_GB"
-        name: "Gnome Mug"
-        translatable: "@mug_variant_small"
-    de_de_mug_variant_small_translation:
-        locale: "de_DE"
-        name: "Gnome Becher"
-        translatable: "@mug_variant_small"
-    en_gb_hat_variant_translation:
-        locale: "en_GB"
-        name: "Logan Hat"
-        translatable: "@hat_variant"
-    de_de_hat_variant_translation:
-        locale: "de_DE"
-        name: "Logan Hut"
-        translatable: "@hat_variant"
-    small_t_shirt_translation:
-        locale: "en_GB"
-        name: "Small Logan T-Shirt"
-        translatable: "@t_shirt_small"
-    medium_t_shirt_translation:
-        locale: "en_GB"
-        name: "Medium Logan T-Shirt"
-        translatable: "@t_shirt_medium"
-    large_t_shirt_translation:
-        locale: "en_GB"
-        name: "Large Logan T-Shirt"
-        translatable: "@t_shirt_large"
-    extra_large_t_shirt_translation:
-        locale: "en_GB"
-        name: "Extra Large Logan T-Shirt"
-        translatable: "@t_shirt_extra_large"
-    small_disabled_t_shirt_translation:
-        locale: "en_GB"
-        name: "Small Disabled T-Shirt"
-        translatable: "@disabled_t_shirt_small"
 
 Sylius\Component\Core\Model\ProductVariant:
     mug_variant_big:
@@ -462,66 +406,112 @@ Sylius\Component\Core\Model\ProductVariant:
         channelPricings:
             - "@gb_small_disabled_t_shirt_web_channel_pricing"
 
+Sylius\Component\Product\Model\ProductVariantTranslation:
+    en_gb_mug_variant_big_translation:
+        locale: "en_GB"
+        name: "Logan Mug"
+        translatable: "@mug_variant_big"
+    de_de_mug_variant_big_translation:
+        locale: "de_DE"
+        name: "Logan Becher"
+        translatable: "@mug_variant_big"
+    en_gb_mug_variant_small_translation:
+        locale: "en_GB"
+        name: "Gnome Mug"
+        translatable: "@mug_variant_small"
+    de_de_mug_variant_small_translation:
+        locale: "de_DE"
+        name: "Gnome Becher"
+        translatable: "@mug_variant_small"
+    en_gb_hat_variant_translation:
+        locale: "en_GB"
+        name: "Logan Hat"
+        translatable: "@hat_variant"
+    de_de_hat_variant_translation:
+        locale: "de_DE"
+        name: "Logan Hut"
+        translatable: "@hat_variant"
+    small_t_shirt_translation:
+        locale: "en_GB"
+        name: "Small Logan T-Shirt"
+        translatable: "@t_shirt_small"
+    medium_t_shirt_translation:
+        locale: "en_GB"
+        name: "Medium Logan T-Shirt"
+        translatable: "@t_shirt_medium"
+    large_t_shirt_translation:
+        locale: "en_GB"
+        name: "Large Logan T-Shirt"
+        translatable: "@t_shirt_large"
+    extra_large_t_shirt_translation:
+        locale: "en_GB"
+        name: "Extra Large Logan T-Shirt"
+        translatable: "@t_shirt_extra_large"
+    small_disabled_t_shirt_translation:
+        locale: "en_GB"
+        name: "Small Disabled T-Shirt"
+        translatable: "@disabled_t_shirt_small"
+
 Sylius\Component\Taxonomy\Model\TaxonTranslation:
     en_gb_category_translation:
         slug: "categories"
         locale: "en_GB"
         name: "Categories"
-        description: 'Lorem ipsum'
+        description: <paragraph(2)>
         translatable: "@category_taxon"
     en_gb_mug_taxon_translation:
         slug: "categories/mugs"
         locale: "en_GB"
         name: "Mugs"
-        description: 'Lorem ipsum'
+        description: <paragraph(2)>
         translatable: "@mug_taxon"
     en_gb_t_shirt_taxon_translation:
         slug: "categories/t-shirts"
         locale: "en_GB"
         name: "T-Shirts"
-        description: 'Lorem ipsum'
+        description: <paragraph(2)>
         translatable: "@t_shirt_taxon"
     en_gb_brand_translation:
         slug: "brands"
         locale: "en_GB"
         name: "Brands"
-        description: 'Lorem ipsum'
+        description: <paragraph(2)>
         translatable: "@brand_taxon"
     en_gb_hat_taxon_translation:
         slug: "categories/hats"
         locale: "en_GB"
         name: "Hats"
-        description: 'Lorem ipsum'
+        description: <paragraph(2)>
         translatable: "@hat_taxon"
     de_de_category_translation:
         slug: "kategorien"
         locale: "de_DE"
         name: "Kategorien"
-        description: 'Lorem ipsum'
+        description: <paragraph(2)>
         translatable: "@category_taxon"
     de_de_mug_taxon_translation:
         slug: "kategorien/1tassen"
         locale: "de_DE"
         name: "Tassen"
-        description: 'Lorem ipsum'
+        description: <paragraph(2)>
         translatable: "@mug_taxon"
     de_de_t_shirt_taxon_translation:
         slug: "kategorien/1t-shirts"
         locale: "de_DE"
         name: "T-Shirts"
-        description: 'Lorem ipsum'
+        description: <paragraph(2)>
         translatable: "@t_shirt_taxon"
     de_de_brand_translation:
         slug: "marken"
         locale: "de_DE"
         name: "Marken"
-        description: 'Lorem ipsum'
+        description: <paragraph(2)>
         translatable: "@brand_taxon"
     de_de_hat_taxon_translation:
         slug: "kategorien/hut"
         locale: "de_DE"
         name: "Hut"
-        description: 'Lorem ipsum'
+        description: <paragraph(2)>
         translatable: "@hat_taxon"
 
 Sylius\Component\Core\Model\Taxon:
